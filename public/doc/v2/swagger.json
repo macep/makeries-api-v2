@@ -1,0 +1,2746 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Makeries API documentation",
+    "version": "1.0.0",
+    "contact": {
+      "email": "apiteam@makeries.co.uk"
+    }
+  },
+  "basePath": "/v2",
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "token"
+    }
+  },
+  "paths": {
+    "/maker": {
+      "get": {
+        "tags": [
+          "maker"
+        ],
+        "summary": "Return makeries",
+        "description": "Return all makeries",
+        "operationId": "getMakers",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "address",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "city",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "postcode",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "telephone",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "website",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "social1",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "social2",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "social3",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "mapUrl",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "adminEmail",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "briefDescription",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "longDescription",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "region.id",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "published",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          {
+            "in": "query",
+            "name": "featured",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          {
+            "in": "query",
+            "name": "subscription",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          {
+            "in": "query",
+            "name": "sort_by",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Maker"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "maker"
+        ],
+        "summary": "Create new maker",
+        "description": "Create a maker",
+        "operationId": "createMaker",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "maker",
+            "description": "The maker to create.",
+            "schema": {
+              "$ref": "#/components/schemas/Maker"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Maker"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      }
+    },
+    "/maker/{id}": {
+      "get": {
+        "tags": [
+          "maker"
+        ],
+        "summary": "Return a maker",
+        "description": "Return one maker by ID",
+        "operationId": "getMaker",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of maker to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Maker"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "maker"
+        ],
+        "summary": "Update maker",
+        "description": "Update maker detail by ID",
+        "operationId": "updateMaker",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of maker to update",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "maker",
+            "description": "The maker to update.",
+            "schema": {
+              "$ref": "#/components/schemas/Maker"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Maker"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "maker"
+        ],
+        "summary": "Delete maker",
+        "description": "Delete maker by ID",
+        "operationId": "deleteMaker",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of maker to delete",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      }
+    },
+    "/maker/{id}/image": {
+      "get": {
+        "tags": [
+          "maker"
+        ],
+        "summary": "Get maker images",
+        "description": "get list of images for maker",
+        "operationId": "getMakerImages",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of maker",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Image not found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "maker"
+        ],
+        "summary": "Add image to maker",
+        "description": "add image maker",
+        "operationId": "addMakerImage",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of maker",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "name of file",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "upfile",
+            "type": "file",
+            "description": "The file to upload.",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Maker not found"
+          }
+        }
+      }
+    },
+    "/maker/{id}/image/{imgId}": {
+      "get": {
+        "tags": [
+          "maker"
+        ],
+        "summary": "Download image",
+        "description": "Download image",
+        "operationId": "getMakerImage",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of maker",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "imgId",
+            "in": "path",
+            "description": "ID of image to download",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "image data"
+          },
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "maker"
+        ],
+        "summary": "Delete image",
+        "description": "Delete image",
+        "operationId": "deleteMakerImage",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of maker",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "imgId",
+            "in": "path",
+            "description": "ID of image to delete",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/region": {
+      "get": {
+        "tags": [
+          "region"
+        ],
+        "summary": "Return regions",
+        "description": "Return all regions",
+        "operationId": "getRegions",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "sort_by",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Region"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "region"
+        ],
+        "summary": "Create region",
+        "description": "Create a region",
+        "operationId": "createRegion",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "New region name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/components/schemas/Region"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      }
+    },
+    "/region/{id}": {
+      "get": {
+        "tags": [
+          "region"
+        ],
+        "summary": "Get a region",
+        "description": "get one region",
+        "operationId": "getRegion",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of region to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Region"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Region not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "region"
+        ],
+        "summary": "Update a region",
+        "description": "Update a region",
+        "operationId": "updateRegion",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of region to update",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "New region name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "region"
+        ],
+        "summary": "Delete a region",
+        "description": "Delete a region",
+        "operationId": "deleteRegion",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of region to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/businesstype": {
+      "get": {
+        "tags": [
+          "business type"
+        ],
+        "summary": "Return busines types",
+        "description": "Return all regions",
+        "operationId": "getBusinessTypes",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "sort_by",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/BusinessType"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "business type"
+        ],
+        "summary": "Create a business type",
+        "description": "Create a business type",
+        "operationId": "createBusinessType",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "New business type name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/components/schemas/BusinessType"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      }
+    },
+    "/businesstype/{id}": {
+      "get": {
+        "tags": [
+          "business type"
+        ],
+        "summary": "Get a business type",
+        "description": "get one business type",
+        "operationId": "getBusinessType",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of business type to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/BusinessType"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Business type not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "business type"
+        ],
+        "summary": "Update a business type",
+        "description": "Update a busines type",
+        "operationId": "updateBusinessType",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of busines type to update",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "New business type name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "business type"
+        ],
+        "summary": "Delete a business type",
+        "description": "Delete a business type",
+        "operationId": "deleteBusinessType",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of business type to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/servicetype": {
+      "get": {
+        "tags": [
+          "service type"
+        ],
+        "summary": "Return service types",
+        "description": "Return all regions",
+        "operationId": "getServiceTypes",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "sort_by",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ServiceType"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "service type"
+        ],
+        "summary": "Create a service type",
+        "description": "Create a service type",
+        "operationId": "createServiceType",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "New service type name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/components/schemas/ServiceType"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      }
+    },
+    "/servicetype/{id}": {
+      "get": {
+        "tags": [
+          "service type"
+        ],
+        "summary": "Get a service type",
+        "description": "get one service type",
+        "operationId": "getServiceType",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of service type to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ServiceType"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Service type not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "service type"
+        ],
+        "summary": "Update a service type",
+        "description": "Update a service type",
+        "operationId": "updateServiceType",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of service type to update",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "Service type name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "service type"
+        ],
+        "summary": "Delete a service type",
+        "description": "Delete a service type",
+        "operationId": "deleteServiceType",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of service type to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/product": {
+      "get": {
+        "tags": [
+          "product"
+        ],
+        "summary": "Return products",
+        "description": "Return all products",
+        "operationId": "getProducts",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "sort_by",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "product"
+        ],
+        "summary": "Create product",
+        "description": "Create a product",
+        "operationId": "createProduct",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "New product name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/components/schemas/Product"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      }
+    },
+    "/product/{id}": {
+      "get": {
+        "tags": [
+          "product"
+        ],
+        "summary": "Get a product",
+        "description": "get one product",
+        "operationId": "getProduct",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of product to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "product"
+        ],
+        "summary": "Update a product",
+        "description": "Update a product",
+        "operationId": "updateProduct",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of product to update",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "New product name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "product"
+        ],
+        "summary": "Delete a product",
+        "description": "Delete a product",
+        "operationId": "deleteProduct",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of product to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/project": {
+      "get": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Return projects",
+        "description": "Return all projects",
+        "operationId": "getProjects",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "maker_id",
+            "required": false,
+            "type": "integer",
+            "description": "ID of maker"
+          },
+          {
+            "in": "query",
+            "name": "sort_by",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Create project",
+        "description": "Create a project",
+        "operationId": "createProject",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "maker_id",
+            "in": "formData",
+            "description": "ID of maker this project belongs to",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "New project name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "Description of project",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      }
+    },
+    "/project/{id}": {
+      "get": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Get a project",
+        "description": "get one project",
+        "operationId": "getProject",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of project to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Project not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Update a project",
+        "description": "Update a project",
+        "operationId": "updateProject",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of project to update",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "maker_id",
+            "in": "formData",
+            "description": "ID of maker this project belongs to",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "Project name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "Description of project",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Delete a project",
+        "description": "Delete a project",
+        "operationId": "deleteProject",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of project to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/project/{id}/image": {
+      "get": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Get project images",
+        "description": "get list of images for project",
+        "operationId": "getProjectImages",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of project",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Image not found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Add image to project",
+        "description": "add image project",
+        "operationId": "addProjectImage",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of project",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "name of file",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "upfile",
+            "type": "file",
+            "description": "The file to upload.",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Project not found"
+          }
+        }
+      }
+    },
+    "/project/{id}/image/{imgId}": {
+      "get": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Download image",
+        "description": "Download image",
+        "operationId": "getProjectImage",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of project",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "imgId",
+            "in": "path",
+            "description": "ID of image to download",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "image data"
+          },
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Delete image",
+        "description": "Delete image",
+        "operationId": "deleteProjectImage",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of project",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "imgId",
+            "in": "path",
+            "description": "ID of image to delete",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/media": {
+      "get": {
+        "tags": [
+          "media"
+        ],
+        "summary": "Return medias",
+        "description": "Return all medias",
+        "operationId": "getMedias",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "maker_id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "url",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "sort_by",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Media"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "media"
+        ],
+        "summary": "Create media",
+        "description": "Create a media",
+        "operationId": "createMedia",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "maker_id",
+            "in": "formData",
+            "description": "Maker ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "New media name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "url",
+            "in": "formData",
+            "description": "url for media",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Media"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      }
+    },
+    "/media/{id}": {
+      "get": {
+        "tags": [
+          "media"
+        ],
+        "summary": "Get a media",
+        "description": "get one media",
+        "operationId": "getMedia",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of media to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Media"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Media not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "media"
+        ],
+        "summary": "Update a media",
+        "description": "Update a media",
+        "operationId": "updateMedia",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of media to update",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "New media name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "url",
+            "in": "formData",
+            "description": "url for media",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "media"
+        ],
+        "summary": "Delete a media",
+        "description": "Delete a media",
+        "operationId": "deleteMedia",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of media to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/makergroup": {
+      "get": {
+        "tags": [
+          "maker group"
+        ],
+        "summary": "Return maker groups",
+        "description": "Return all makerg roups",
+        "operationId": "getMakerGroups",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "sort_by",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/MakerGroup"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "maker group"
+        ],
+        "summary": "Create maker group",
+        "description": "Create a maker group",
+        "operationId": "createMakerGroup",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "New makergroup name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "regions",
+            "in": "formData",
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "business_types",
+            "in": "formData",
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "service_types",
+            "in": "formData",
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "products",
+            "in": "formData",
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/components/schemas/MakerGroup"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      }
+    },
+    "/makergroup/{id}": {
+      "get": {
+        "tags": [
+          "maker group"
+        ],
+        "summary": "Get a maker group",
+        "description": "get one maker group",
+        "operationId": "getMakerGroup",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of maker group to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/MakerGroup"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "MakerGroup not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "maker group"
+        ],
+        "summary": "Update a maker group",
+        "description": "Update a maker group",
+        "operationId": "updateMakerGroup",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of makergroup to update",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "New makergroup name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "regions",
+            "in": "formData",
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "business_types",
+            "in": "formData",
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "service_types",
+            "in": "formData",
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "products",
+            "in": "formData",
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "maker group"
+        ],
+        "summary": "Delete a maker group",
+        "description": "Delete a maker group",
+        "operationId": "deleteMakerGroup",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of makergroup to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IdString": {
+        "type": "string"
+      },
+      "BusinessType": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "MakerGroup": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "ServiceType": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Region": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Maker": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "address1": {
+            "type": "string"
+          },
+          "address2": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "postcode": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "telephone": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string"
+          },
+          "social1": {
+            "type": "string"
+          },
+          "social2": {
+            "type": "string"
+          },
+          "social3": {
+            "type": "string"
+          },
+          "map_url": {
+            "type": "string"
+          },
+          "admin_email": {
+            "type": "string"
+          },
+          "brief_description": {
+            "type": "string"
+          },
+          "long_description": {
+            "type": "string"
+          },
+          "regions": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "published": {
+            "type": "string",
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          "featured": {
+            "type": "string",
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          "subscription": {
+            "type": "string",
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          "business_types": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "service_types": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "medias": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "projects": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "maker_groups": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Maker": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "address1": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "postcode": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        },
+        "social1": {
+          "type": "string"
+        },
+        "social2": {
+          "type": "string"
+        },
+        "social3": {
+          "type": "string"
+        },
+        "mapUrl": {
+          "type": "string"
+        },
+        "admin_email": {
+          "type": "string"
+        },
+        "brief_description": {
+          "type": "string"
+        },
+        "long_description": {
+          "type": "string"
+        },
+        "region": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Region"
+          }
+        },
+        "published": {
+          "type": "string",
+          "enum": [
+            "yes",
+            "no"
+          ]
+        },
+        "featured": {
+          "type": "string",
+          "enum": [
+            "yes",
+            "no"
+          ]
+        },
+        "subscription": {
+          "type": "string",
+          "enum": [
+            "yes",
+            "no"
+          ]
+        },
+        "businesstypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BusinessType"
+          }
+        },
+        "servicetypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ServiceType"
+          }
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Product"
+          }
+        },
+        "medias": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Media"
+          }
+        },
+        "projects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Project"
+          }
+        },
+        "makergroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Product"
+          }
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Image"
+          }
+        }
+      }
+    },
+    "Image": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "image_data": {
+          "type": "string"
+        }
+      }
+    },
+    "BusinessType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "MakerGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "businesstypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BusinessType"
+          }
+        },
+        "servicetypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ServiceType"
+          }
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Product"
+          }
+        },
+        "makergroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Product"
+          }
+        }
+      }
+    },
+    "ServiceType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Media": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "image_data": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "Project": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "maker)id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Image"
+          }
+        }
+      }
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Region": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "responses": {},
+  "parameters": {},
+  "tags": []
+}
