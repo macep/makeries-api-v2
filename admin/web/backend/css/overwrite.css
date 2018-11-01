@@ -1,0 +1,36 @@
+li.bg-green.active {
+    border-top-color: #c6ecc6 !important;
+}
+li.bg-green a:hover{
+    color: #fff !important;
+}
+li.bg-green.active a{
+    background-color: #39ac39 !important;
+    color: #fff !important;
+}
+div.tab-pane.active {
+    padding:5px;
+}
+div.tab-pane.panel-open {
+    background-color: #c6ecc6 !important;
+}
+.fa-font-big {
+    font-size:20px !important;
+    font-weight:bold !important;
+}
+td.color-palette.bg-red a, td.color-palette.bg-green a{
+    color:#fff !important;
+}
+
+@media {
+    .main-footer {
+      display: none;
+    }
+    @page {
+        size: auto;   /* auto is the initial value */
+        margin: 0;  /* this affects the margin in the printer settings */
+    }
+    *::-webkit-scrollbar {
+        display: none;
+    }
+}
