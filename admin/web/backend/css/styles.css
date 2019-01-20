@@ -1,0 +1,125 @@
+/*reusables*/
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap
+}
+
+
+/* sidebar */
+.sidebar-menu > li:not(.header) {
+    border-bottom: 1px solid rgba(255, 255, 255, .05);
+    padding-bottom: 15px
+}
+
+.sidebar-menu > li:not(.header):hover {
+    background: rgba(255, 255, 255, .01);
+}
+
+.sidebar-menu > li:not(.header):hover a {
+    background: transparent;
+}
+
+.section-menu {
+    padding: 0 0 0 30px;
+}
+
+.section-menu > li:hover {
+    background: rgba(255, 255, 255, .025);
+}
+
+.section-menu li > a {
+    display: block;
+    padding: 5px 10px;
+}
+
+.section-menu li > a i {
+    margin-right: 5px;
+}
+
+
+
+
+/*Maker's list */
+.makers-list {
+
+}
+
+.makers-list .makers-header {}
+
+.makers-list .table>tbody>tr.maker-details>th, 
+.makers-list .table>tbody>tr.maker-details>td {
+    border-top: 1px solid transparent
+}
+
+
+
+/* maker's details */
+/* images */
+#makerImage [class*='col-'] .image-container {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    background-size: cover
+}
+
+#makerImage [class*='col-'] .image-container:hover a {
+    display: block;
+    background-color: rgba(0,0,0,.25);
+}
+
+#makerImage [class*='col-'] a {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding-top: 40px; 
+    text-align: center;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+#makerImage [class*='col-'] a i {
+    color: #fff;
+    font-size: 24px;
+}
+
+
+/* overrides*/
+li.bg-green.active {
+    border-top-color: #c6ecc6 !important;
+}
+li.bg-green a:hover{
+    color: #fff !important;
+}
+li.bg-green.active a{
+    background-color: #39ac39 !important;
+    color: #fff !important;
+}
+div.tab-pane.active {
+    padding:5px;
+}
+div.tab-pane.panel-open {
+    background-color: #c6ecc6 !important;
+}
+.fa-font-big {
+    font-size:20px !important;
+    font-weight:bold !important;
+}
+td.color-palette.bg-red a, td.color-palette.bg-green a{
+    color:#fff !important;
+}
+
+@media {
+    .main-footer {
+      display: none;
+    }
+    @page {
+        size: auto;   /* auto is the initial value */
+        margin: 0;  /* this affects the margin in the printer settings */
+    }
+    *::-webkit-scrollbar {
+        display: none;
+    }
+}
+

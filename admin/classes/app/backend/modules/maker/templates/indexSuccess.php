@@ -67,53 +67,60 @@
         <?php endif;?>
 
         <!-- Default box -->
-        <div class="box">
-          <div class="box-header with-border">
-            <h3 class="box-title">Maker Groups</h3>
-          </div>
-          <div class="box-body">
-            <?php $pos = 1;?>
-            <table class="table table-hover" width="100%">
-                <tr><thead><th style="width:20px;">#</th><th>NAME</th><th>WEB</th><th style="width:20px;"></th></thead></tr>
-                <?php foreach ($makers as $maker) :?>
-                <tr>
-                    <td><?=(($pagination['current']-1)*$pagination['per']+$pos++)?></td>
-                    <th><?=urlGroupRestriction('/maker/view/?id='.$maker->id, $maker->name)?></th>
-                    <td><?= $maker->website?></td>
-                    <td><?=urlGroupRestriction('/maker/delete/?id='.$maker->id, '', 'fa fa-remove danger')?></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td colspan="2"><address>
-                        <?=$maker->city?>
-                        <br><?=$maker->address1?>
-                        <br><?=$maker->postcode?>
-                        <?php if (isset($maker->telephone)) :?>
-                        <br>Phone: <?=$maker->telephone?>
-                        <?php endif;?>
-                        <?php if (isset($maker->email)) :?>
-                        <br>Email: <?=$maker->email?>
-                        <?php endif;?>
-                    </address></td>
-                    <td></td>
-                </tr>
-                <?php endforeach;?>
-            </table>  
-          </div>
-          <!-- /.box-body -->
-          <div class="box-footer">
-            <?php if (isset($pagination) && $pagination['pages']>1) :?>
-            <ul class="pagination">
-            <?php
-            $link = '/maker/index/?';
-            ?>
-               <?php for ($i=$pagination['start']; $i<=$pagination['end']; $i++) :?>
-               <li<?=$i==$pagination['current'] ? ' class="current"':''?>><a href='<?=$link.'&pageNr='.$i.$linkMore?>'><?=$i?></a></li>
-               <?php endfor;?>
-            </ul>
-            <?php endif;?>
-          </div>
-          <!-- /.box-footer-->
+        <div class="box makers-list">
+			<div class="box-header with-border">
+				<h3 class="box-title">Makers</h3>
+			</div>
+			<div class="box-body">
+			<?php $pos = 1;?>
+			<table class="table table-hover" width="100%">
+			    <tr><thead><th style="width:20px;">#</th><th>NAME</th><th>WEB</th><th style="width:20px;"></th></thead></tr>
+			    <?php foreach ($makers as $maker) :?>
+			    <tr class="maker-header">
+			        <td><?=(($pagination['current']-1)*$pagination['per']+$pos++)?></td>
+			        <th title="Edit <? echo $maker->name ?>"><?=urlGroupRestriction('/maker/edit/?id='.$maker->id, $maker->name)?></th>
+			        <td><?= $maker->website?></td>
+			        <td title="View <? echo $maker->name ?>">
+			            <?=urlGroupRestriction('/maker/view/?id='.$maker->id, '', 'fa fa-eye')?>
+			        </td>
+			        <td title="Delete <? echo $maker->name ?>">
+			            <?=urlGroupRestriction('/maker/delete/?id='.$maker->id, '', 'fa fa-remove', false, true)?>
+			        </td>
+			    </tr>
+			    <tr class="maker-details">
+			      <td></td>
+			      <td colspan="2">
+			        <address>
+			          <?=$maker->city?>
+			          <div><?=$maker->address1?></div>
+			          <div><?=$maker->postcode?></div>
+			          <?php if (isset($maker->telephone)) :?>
+			            <div>Phone: <?=$maker->telephone?></div>
+			          <?php endif;?>
+			          <?php if (isset($maker->email)) :?>
+			            <div>Email: <?=$maker->email?></div>
+			          <?php endif;?>
+			        </address>
+			      </td>
+			      <td></td>
+			    </tr>
+			    <?php endforeach;?>
+			</table>  
+			</div>
+          	<!-- /.box-body -->
+			<div class="box-footer">
+				<?php if (isset($pagination) && $pagination['pages']>1) :?>
+					<ul class="pagination">
+						<?php
+						$link = '/maker/index/?';
+						?>
+						<?php for ($i=$pagination['start']; $i<=$pagination['end']; $i++) :?>
+							<li<?=$i==$pagination['current'] ? ' class="current"':''?>><a href='<?=$link.'&pageNr='.$i.$linkMore?>'><?=$i?></a></li>
+						<?php endfor;?>
+					</ul>
+				<?php endif;?>
+			</div>
+          	<!-- /.box-footer-->
         </div>
     </div>
 </div>

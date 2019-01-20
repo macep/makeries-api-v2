@@ -41,7 +41,7 @@
   <section class="top-bar-section">
     <!-- Right Nav Section -->
     <ul class="right">
-						<li><a href="/account/logout">Logout</a></li>
+						<li><a href="/logout.php">Logout</a></li>
     </ul>
 
     <!-- Left Nav Section -->

@@ -78,25 +78,33 @@ class MakerGroup extends Model
                 if ($request->has('business_types')) {
                     $tabBusinessTypes = explode(',',$request->business_types);
                     foreach ($tabBusinessTypes as $businessTypeId) {
-                        $this->businesstypes()->attach($businessTypeId, ['created_by' => $userId]);
+                        if ((int)$businessTypeId) {
+                            $this->businesstypes()->attach($businessTypeId, ['created_by' => $userId]);
+                        }
                     }
                 }
                 if ($request->has('products')) {
                     $tabProducts = explode(',',$request->products);
                     foreach ($tabProducts as $productId) {
-                        $this->products()->attach($productId, ['created_by' => $userId]);
+                        if ((int)$productId) {
+                            $this->products()->attach($productId, ['created_by' => $userId]);
+                        }
                     }
                 }
                  if ($request->has('regions')) {
                     $tabRegions = explode(',',$request->regions);
                     foreach ($tabRegions as $regionId) {
-                        $this->regions()->attach($regionId, ['created_by' => $userId]);
+                        if ((int)$regionId) {
+                            $this->regions()->attach($regionId, ['created_by' => $userId]);
+                        }
                     }
                 }
                 if ($request->has('service_types')) {
                     $tabServiceTypes = explode(',',$request->service_types);
                     foreach ($tabServiceTypes as $serviceTypeId) {
-                        $this->servicetypes()->attach($serviceTypeId, ['created_by' => $userId]);
+                        if ((int)$serviceTypeId) {
+                            $this->servicetypes()->attach($serviceTypeId, ['created_by' => $userId]);
+                        }
                     }
                 }
             } catch(\Illuminate\Database\QueryException $ex){

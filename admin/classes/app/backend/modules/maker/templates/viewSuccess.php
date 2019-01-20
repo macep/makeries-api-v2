@@ -1,3 +1,9 @@
+<style>
+    span.red{
+        color: #900 !important;
+        font-weight:bold;
+    }
+</style>
 <div class="row">
     <div class="col-sm-4">
         <div class="box box-primary">
@@ -43,37 +49,48 @@
               <p class="text-muted">
                 <?=$maker->social3?>
               </p>
-            <strong><i class="fa fa-file-text-o margin-r-5"></i> Brief description</strong>
+            <strong><i class="fa"></i> Min</strong>
+              <p class="text-muted">
+                <?=$maker->min?>
+              </p>
+            <strong><i class="fa"></i> Max</strong>
+              <p class="text-muted">
+                <?=$maker->max?>
+              </p>
+            <strong><i class="fa margin-r-5"></i> Brief description</strong>
                 <p><?=$maker->brief_description?></p>            
 
-            <a href="/maker/edit?id=<?=$maker->id?>" class="btn btn-primary btn-block"><b>Update details</b></a>
-            <strong><i class="fa fa-file-text-o margin-r-5"></i> Business types</strong>
-              <p>
-                <?php foreach ($maker->businesstypes as $business_type) :?>
-                <span class="label label-primary"><?=$business_type->name?></span>
-                <?php endforeach;?>
-              </p>
-
-            <strong><i class="fa fa-file-text-o margin-r-5"></i> Products</strong>
-              <p>
-                <?php foreach ($maker->products as $product) :?>
-                <span class="label label-primary"><?=$product->name?></span>
-                <?php endforeach;?>
-              </p>
-
-            <strong><i class="fa fa-file-text-o margin-r-5"></i> Service types</strong>
-              <p>
-                <?php foreach ($maker->servicetypes as $service_type) :?>
-                <span class="label label-primary"><?=$service_type->name?></span>
-                <?php endforeach;?>
-              </p>
-            <strong><i class="fa fa-file-text-o margin-r-5"></i> Regions</strong>
+            <strong><i class="fa margin-r-5"></i> Regions</strong>
               <p>
                 <?php foreach ($maker->regions as $region) :?>
                 <span class="label label-primary"><?=$region->name?></span>
                 <?php endforeach;?>
               </p>
-            <strong><i class="fa fa-file-text-o margin-r-5"></i> MakerGroups</strong>
+            <strong><i class="fa margin-r-5"></i> Products</strong>
+              <p>
+                <?php foreach ($maker->products as $product) :?>
+                <span class="label label-primary"><?=$product->name?></span>
+                <?php endforeach;?>
+              </p>
+            <strong><i class="fa margin-r-5"></i> Materials</strong>
+              <p>
+                <?php foreach ($maker->materials as $material) :?>
+                <span class="label label-primary"><?=$material->name?></span>
+                <?php endforeach;?>
+              </p>
+            <strong><i class="fa margin-r-5"></i> Capacities</strong>
+              <p>
+                <?php foreach ($maker->capacities as $capacity) :?>
+                <span class="label label-primary"><?=$capacity->name?></span>
+                <?php endforeach;?>
+              </p>
+            <strong><i class="fa margin-r-5"></i> Services</strong>
+              <p>
+                <?php foreach ($maker->services as $service) :?>
+                <span class="label label-primary"><?=$service->name?></span>
+                <?php endforeach;?>
+              </p>
+            <strong><i class="fa margin-r-5"></i> MakerGroups</strong>
               <p>
                 <?php foreach ($maker->makergroups as $maker_group) :?>
                 <span class="label label-primary"><?=$maker_group->name?></span>
@@ -89,6 +106,7 @@
               <li class="<?=($tab=='image'  ?'active':'')?>"><a href="#images" data-toggle="tab" aria-expanded="true">Images</a></li>
               <li class="<?=($tab=='project'?'active':'')?>"><a href="#projects" data-toggle="tab" aria-expanded="true">Projects</a></li>
               <li class="<?=($tab=='media'  ?'active':'')?>"><a href="#media" data-toggle="tab" aria-expanded="false">Media</a></li>
+              <li class="<?=($tab=='text'   ?'active':'')?>"><a href="#text" data-toggle="tab" aria-expanded="false">Texts</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane<?=($tab=='image' ?' active':'')?>" id="images">
@@ -103,10 +121,12 @@
                             <label for="inputName" class="col-sm-2 control-label">File</label>
                             <div class="col-sm-10">
                             <input type="file" class="form-control" id="makerImageFile" name="upfile">
+                            <small>Allowed images are: JPEG, GIF and PNG</small>
                             </div>
                         </div>
                         <div class="form-group">
                           <div class="col-sm-offset-2 col-sm-10">
+                            <span class="red hide makerImageErr"></span><br>
                             <input type="hidden" name="maker_id" value="<?=$maker->id?>">
                             <button type="submit" class="btn btn-primary">Add image</button>
                           </div>
@@ -160,8 +180,26 @@
                     </form>
                     <div id="makerMedia"></div>
                 </div>
+                <div class="tab-pane<?=($tab=='text' ?' active':'')?>" id="text">
+                    <h3>What we do</h3>
+                    <p><?=nl2br($maker->what_we_do)?></p>
+                    <h3>Testimonials</h3>
+                    <p><?=nl2br($maker->testimonials)?></p>
+                    <h3>Story description</h3>
+                    <p><?=nl2br($maker->story_description)?></p>
+                    <h3>Company description</h3>
+                    <p><?=nl2br($maker->company_description)?></p>
+                </div>
             </div>
             <!-- /.tab-content -->
+        </div>
+
+        <div>
+          <hr>
+          <a href="/maker/edit?id=<?=$maker->id?>" class="btn btn-success btn-block">
+            <i class="fa fa-pencil"></i>&nbsp;
+            <b>EDIT DETAILS</b>
+        </a>
         </div>
     </div>
 </div>
@@ -181,6 +219,15 @@ function reloadMakerMedia(pageNr=1) {
     $.get( "/media/ajaxlist?maker_id=<?=$maker->id?>&page_nr="+pageNr, function( data ) {
         $( "#makerMedia" ).html( data );
     });
+}
+function deleteMakerImage(id) {
+     var r = confirm("Are you sure!");
+     if (r == true) {
+         $.get( "/image/delete?maker_id=<?=$maker->id?>&id="+id, function( data ) {
+             reloadMakerImage();
+         });
+     }
+     return false;
 }
 reloadMakerImage();
 reloadMakerMedia();
@@ -219,6 +266,38 @@ $('#mediaSave').submit(function(){
         });
 
     event.preventDefault();
+    return false;
+});
+$('#imageSave').submit(function(){
+    event.preventDefault();
+    var form = $('#imageSave')[0];
+    var data = new FormData(form);
+    var theThisForm = this;
+    $.ajax({
+        type: 'POST',
+        enctype: 'multipart/form-data',
+        data: data,
+        url: "/image/ajaxsave",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data){
+            $(".makerImageErr").addClass('hide');
+            if ('0' == data.substring(0,1)) {
+                $(".makerImageErr").html(data.substring(1));
+                $(".makerImageErr").removeClass('hide');
+            } else {
+                theThisForm.reset();
+                reloadMakerImage();
+                //window.location.href = '/maker/view?id=<?=$maker->id?>&tab=media';
+            }
+        },
+        error: function(e) {
+            $("#openModalDefault").click();
+            $("#modal-default h4").text('Error');
+            $("#modal-default div.modal-body p").html(e.responseText);
+        }
+    });
     return false;
 });
 </script>

@@ -9,6 +9,7 @@ session_start();
 //error_reporting(E_ALL);
 error_reporting(0);
 
+
 // loading configuration file
 require_once('config.inc.php');
 require_once(_CORE_DIR_ . '/Autoloader.php');
@@ -17,7 +18,11 @@ require __DIR__ . '/../../vendor/autoload.php';
 
 // registering autoloader
 spl_autoload_register(array('Autoloader', 'load'));
-		
+
+if (!isset($_SESSION['auth0__user'])) {
+	$router = new Router();
+	$router->redirect('/login.php');
+}
 // Add the generated 'classes' directory to the include path
 set_include_path(_APP_DIR_ . '/classes' . PATH_SEPARATOR . get_include_path());
 		
@@ -106,5 +111,6 @@ if (isset($_SESSION['accountId']) && $_SESSION['accountId']) {
 
 $loadConfig = new Config();
 $loadConfig->load('api');
+$loadConfig->load('auth0');
 
 $router->dispatch(array('target'=>array('c'=>$matches['target']['c'],'a'=>$matches['target']['a'])));

@@ -1,0 +1,29 @@
+{
+  "name": "jgm-admin",
+  "authors": [
+    "Cristian Maghiar <cristi@avangard-media.ro>"
+  ],
+  "description": "bower dependencies for jgm admin",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-datepicker": "^1.7.0",
+    "bootstrap-slider": "*",
+    "bootstrap-colorpicker": "^2.5.1",
+    "bootstrap-daterangepicker": "^2.1.25",
+    "bootstrap-timepicker": "^0.5.2",
+    "fastclick": "^1.0.6",
+    "font-awesome": "^4.7.0",
+    "Ionicons": "ionicons#^2.0.1",
+    "jquery-slimscroll": "slimscroll#^1.3.8",
+    "jquery-ui": "1.11.4"
+  }
+}

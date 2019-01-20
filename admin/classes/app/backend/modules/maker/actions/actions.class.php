@@ -5,8 +5,9 @@ class makerActions extends ControllerApi {
     function __construct() {
         $this->searchFields = ['name','email','address1','city','postcode','telephone'];
         $this->objectFields = [
-                               'name', 'address1', 'address2','city','postcode','email','telephone','website',
-                               'social1','social2','social3','map_url','admin_email','brief_description','long_description'
+                               'name', 'address1', 'address2', 'city','postcode', 'email', 'telephone', 'website',
+                               'social1', 'social2', 'social3', 'map_url', 'admin_email', 'brief_description',
+                               'what_we_do', 'testimonials', 'story_description', 'company_description','min','max'
                                ];
         $this->apiUrl = 'maker';
         $this->adminUrl = 'maker';
@@ -73,10 +74,23 @@ class makerActions extends ControllerApi {
             $maker = $apiV2->getOne($this->apiUrl . '/' . $id);
         }
 #var_dump($maker);
-        $regions = $apiV2->get('region');
+        $apiV2->get('region');
+        $regions = $apiV2->getResponseBodyJson();
+
         $products = $apiV2->get('product');
-        $businessTypes = $apiV2->get('businesstype');
-        $serviceTypes = $apiV2->get('servicetype');
+        $products = $apiV2->getResponseBodyJson();
+
+        $materials = $apiV2->get('material');
+        $materials = $apiV2->getResponseBodyJson();
+
+        $services = $apiV2->get('service');
+        $services = $apiV2->getResponseBodyJson();
+
+        $apiV2->get('makergroup');
+        $makerGroups = $apiV2->getResponseBodyJson();
+
+        $apiV2->get('capacity');
+        $capacities = $apiV2->getResponseBodyJson();
 
         Breadcrumb::add('/'.$this->adminUrl.'/index','Makers');
         Breadcrumb::add(null, $maker ? $maker->name : 'invalid id');
@@ -85,10 +99,9 @@ class makerActions extends ControllerApi {
 
         $this->render->setData('regions', $regions);
         $this->render->setData('products', $products);
-        $this->render->setData('businessTypes', $businessTypes);
-        $this->render->setData('serviceTypes', $serviceTypes);
-
-        $makerGroups = $apiV2->get('makergroup');
+        $this->render->setData('materials', $materials);
+        $this->render->setData('capacities', $capacities);
+        $this->render->setData('services', $services);
         $this->render->setData('makerGroups', $makerGroups);
     }
 
@@ -119,29 +132,32 @@ class makerActions extends ControllerApi {
         $params['featured'] = $this->input->get('featured',null) ? 'yes' : 'no';
 
         if ($this->input->get('region_id', null)) {
-            $params['regions'] = implode(',', $this->input->get('region_id',[]));
+            $params['regions'] = $this->input->get('region_id');
         }
         if ($this->input->get('product_id', null)) {
-            $params['products'] = implode(',', $this->input->get('product_id',[]));
+            $params['products'] =$this->input->get('product_id');
         }
-        if ($this->input->get('business_type_id', null)) {
-            $params['business_types'] = implode(',', $this->input->get('business_type_id',[]));
+        if ($this->input->get('material_id', null)) {
+            $params['materials'] = $this->input->get('material_id');
         }
-        if ($this->input->get('service_type_id', null)) {
-            $params['service_types'] = implode(',', $this->input->get('service_type_id',[]));
+        if ($this->input->get('capacity_id', null)) {
+            $params['capacities'] = $this->input->get('capacity_id');
+        }
+        if ($this->input->get('service_id', null)) {
+            $params['services'] = $this->input->get('service_id',[]);
         }
         if ($this->input->get('maker_group_id', null)) {
-            $params['maker_groups'] = implode(',', $this->input->get('maker_group_id',[]));
+            $params['maker_groups'] = $this->input->get('maker_group_id');
         }
 
         if ($_SESSION['payload']['userRole'] == 'groupAdmin' && 0 == strlen($params['maker_groups'])) {
             echo '0Please select at least one maker group';exit;
         }
-#echo 0;
 #var_dump($params);exit;
         $response = $this->addOrUpdate(json_encode($params));
         if (!$response['error']) {
-            echo 1;
+            //echo '1';
+            echo $response['message']->id;
             exit;
         }
         echo '0'.$response['message'];

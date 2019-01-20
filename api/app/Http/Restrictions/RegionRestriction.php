@@ -21,7 +21,7 @@ class RegionRestriction
                         ->whereIn('maker_group_region.maker_group_id', $request->auth->accessToGroup)
                         ->find($id);
         }
-        return \App\Product::find($id);
+        return \App\Region::find($id);
     }
 
 }

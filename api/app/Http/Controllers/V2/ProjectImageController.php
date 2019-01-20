@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Image;
 use App\Logging;
 use App\Project;
+use App\ImageThumb;
 
 class ProjectImageController extends Controller
 {
@@ -53,6 +54,10 @@ class ProjectImageController extends Controller
             //TODO: find better way to save in storage
             $destinationPath = __DIR__ . '/../../../../storage/images/' . ($image->id % 10);
             $request->file('upfile')->move($destinationPath, $image->id);
+
+            $imageThumb = new ImageThumb();
+            $imageThumb->create($destinationPath . '/' . $image->id);
+
             DB::commit();
         } catch(\Exception $ex){
             DB::rollback();
@@ -61,7 +66,7 @@ class ProjectImageController extends Controller
             return response()->json('There was a problem to save image', 500);
         }
 
-        return response()->json($image);
+        return response()->json($image, 201);
     }
 
     public function download(Request $request, $projectId, $id)
@@ -77,6 +82,10 @@ class ProjectImageController extends Controller
             return response('invalid project ID', 404);
         }
         $imagePath = __DIR__ . '/../../../../storage/images/' . ($image->id % 10) . '/'. $image->id;
+        $downloadThumb = $request->get('thumb');
+        if ((int)$downloadThumb == 1) {
+            $imagePath .= '-thumb';
+        }
         //TODO: check if file not exists
         if (file_exists($imagePath)) {
             return response()->download($imagePath, 'download');

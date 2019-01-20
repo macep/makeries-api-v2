@@ -19,6 +19,11 @@ class ApiV2 {
 
     public function __construct() {
         $this->baseUri = Config::getKey('api','url');
+        $this->doRedirectOnFail = true;
+    }
+
+    public function setDoRedirectOnFail($value) {
+        $this->doRedirectOnFail = $value;
     }
 
     public function get($url, $params = []) {
@@ -45,7 +50,7 @@ class ApiV2 {
 
     public function callPagination($url = '', $filter) {
         if (!isset($filter['perPage'])) {
-            $filter['perPage'] = 4;
+            $filter['perPage'] = 20;
         }
         if (!isset($filter['pageNr'])) {
             $filter['pageNr'] = 1;
@@ -79,6 +84,13 @@ class ApiV2 {
         ]);
         $response = $client->request($method, $url, $options);
         $this->httpCode = $response->getStatusCode();
+        if ($this->doRedirectOnFail && 400 == $this->httpCode) {
+           $router = new Router();
+           if (isset($_SESSION['accountId'])) {
+               unset($_SESSION['accountId']);
+           }
+           $router->redirect('/');
+        }
         $this->responseBody = $response->getBody()->getContents();
         foreach ($response->getHeaders() as $name => $values) {
             if ('x-total-count' == strtolower($name)) {
@@ -117,7 +129,11 @@ class ApiV2 {
                         ]);
             }
         } else {
-            $options['form_params'] = $params;
+            if (is_array($params)) {
+                $options['form_params'] = $params;
+            } else {
+                $options['body'] = $params;
+            }
         }
         return $options;
     }

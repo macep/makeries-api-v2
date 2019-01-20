@@ -59,7 +59,7 @@
                 <tr>
                     <td><?=(($pagination['current']-1)*$pagination['per']+$pos++)?></td>
                     <td><a href='/product/edit/?id=<?=$product->id?>'><?=$product->name?></a></td>
-                    <td><a href='/product/delete/?id=<?=$product->id?>' class="fa fa-remove danger"></a></td>
+                    <td><a href='/product/delete/?id=<?=$product->id?>' class="fa fa-remove danger" onclick="return confirm('Are you sure?');"></a></td>
                 </tr>
                 <?php endforeach;?>
             </table>  

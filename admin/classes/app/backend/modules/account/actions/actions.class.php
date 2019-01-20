@@ -11,7 +11,7 @@ class accountActions extends Controller {
             $token = $this->input->get('token');
             $_SESSION['jwt'] = $token;
             $api = new ApiV2();
-            //$api->setDoRedirectOnFail(false);
+            $api->setDoRedirectOnFail(false);
             $api->get('maker?per_page=1');
             $_SESSION['httpCode'] = $api->getHttpCode();
             if (!$api->responseHadError()) {
@@ -32,6 +32,12 @@ class accountActions extends Controller {
         $this->render->setData('email', $this->input->get('email'));
     }
     
+    function executeLoginerror() {
+        $this->render->setData('message', $_SESSION['loginError']);
+        unset($_SESSION['auth0__user']);
+        unset($_SESSION['loginError']);
+    }
+
     function executeLogout() {
         $_SESSION['accountId'] = null;
         $_SESSION['filter'] = null;

@@ -44,7 +44,18 @@ class MakerGroupController extends Controller
             ]);
         $makerGroup = new MakerGroup;
         if ($makerGroup->insertObject($request)) {
-            return response()->json($makerGroup);
+            $makerGroupGet = MakerGroup::where('id','>=',1);
+            if (isset($request->auth->accessToGroup)) {
+                $makerGroupGet = $makerGroupGet->whereIn('id', $request->auth->accessToGroup);
+            }
+
+            return response()->json(
+                        $makerGroupGet->with('businesstypes')
+                            ->with('products')
+                            ->with('regions')
+                            ->with('servicetypes')
+                            ->find($makerGroup->id)
+                    , 201);
         }
 
         return response('Error while save data', 400);

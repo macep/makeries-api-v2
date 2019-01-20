@@ -40,7 +40,7 @@ class ServiceTypeController extends Controller
         $serviceType->created_by = $request->auth->userId;
         $serviceType->save();
 
-        return response()->json($serviceType);
+        return response()->json($serviceType, 201);
     }
 
     public function view(Request $request, $id)
@@ -65,7 +65,7 @@ class ServiceTypeController extends Controller
             return response(null, 404);
         }
         $validatedData = $this->validate($request, [
-                'name' => 'required|unique:service_types,id,'.$id.'|max:255'
+                'name' => 'required|unique:service_types,name,'.$id.'|max:255'
             ]);
         $serviceType->name = $request->name;
         $serviceType->updated_by = $request->auth->userId;

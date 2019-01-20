@@ -33,7 +33,8 @@ class ProjectController extends Controller
     public function add(Request $request)
     {
         $validatedData = $this->validate($request, [
-                'name' => 'required|unique:projects|max:255',
+                //'name' => 'required|unique:projects|max:255',
+                'name' => 'required|max:255',
                 'maker_id' => 'required',
             ]);
         if (filter_var($request->maker_id, FILTER_VALIDATE_INT) === false) {
@@ -45,6 +46,7 @@ class ProjectController extends Controller
             return response('maker not found', 400);
         }
         $project = new Project;
+        $project->name = $request->name;
         $project->created_by = $request->auth->userId;
         $project->maker_id = $request->maker_id;
         if ($request->has('description')) {
@@ -52,7 +54,7 @@ class ProjectController extends Controller
         }
         $project->save();
 
-        return response()->json($project);
+        return response()->json($project, 201);
     }
 
     public function view(Request $request, $id)

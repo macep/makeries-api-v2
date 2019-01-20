@@ -42,7 +42,7 @@
                 <tr>
                     <td><?=(($pagination['current']-1)*$pagination['per']+$pos++)?></td>
                     <td><a href='/makergroup/edit/?id=<?=$makergroup->id?>'><?=$makergroup->name?></a></td>
-                    <td><a href='/makergroup/delete/?id=<?=$makergroup->id?>' class="fa fa-remove danger"></a></td>
+                    <td><a href='/makergroup/delete/?id=<?=$makergroup->id?>' class="fa fa-remove danger" onclick="return confirm('Are you sure?');"></a></td>
                 </tr>
                 <?php endforeach;?>
             </table>  

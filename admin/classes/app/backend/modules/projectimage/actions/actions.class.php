@@ -12,8 +12,9 @@ class projectimageActions extends ControllerApi {
     public function executeAjaxsave($lock = false) {
         $projectId = $this->input->get('project_id');
         $this->apiUrl = 'project/'.$projectId.'/image';
-        parent::executeAjaxsave(false);
-        $this->router->redirect('/maker/view?id='.$this->input->get('maker_id').'&tab=project');
+        parent::executeAjaxsave();
+        exit;
+        //$this->router->redirect('/maker/view?id='.$this->input->get('maker_id').'&tab=project');
     }
 
     public function executeEdit() {
@@ -77,7 +78,7 @@ class projectimageActions extends ControllerApi {
     public function executeView() {
         $projectId = $this->input->get('project_id');
         $id = $this->input->get('id');
-        $url = 'project/'.$projectId.'/image/'.$id;
+        $url = 'project/'.$projectId.'/image/'.$id.'?thumb=1';
         $apiV2 = new ApiV2();
         $apiV2->get($url);
 

@@ -41,7 +41,7 @@ class BusinessTypeController extends Controller
         $businessType->created_by = $request->auth->userId;
         $businessType->save();
 
-        return response()->json($businessType);
+        return response()->json($businessType, 201);
     }
 
     public function view(Request $request, $id)
@@ -66,7 +66,7 @@ class BusinessTypeController extends Controller
             return response(null, 404);
         }
         $validatedData = $this->validate($request, [
-                'name' => 'required|unique:business_types,id,'.$id.'|max:255'
+                'name' => 'required|unique:business_types,name,'.$id.'|max:255'
             ]);
         $businessType->name = $request->name;
         $businessType->updated_by = $request->auth->userId;
@@ -83,7 +83,7 @@ class BusinessTypeController extends Controller
         if (!$businessType) {
             return response(null, 404);
         }
-        $businesstype->delete();
+        $businessType->delete();
         return response(null, 204);
     }    
     

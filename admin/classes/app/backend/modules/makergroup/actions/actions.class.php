@@ -34,8 +34,8 @@ class makergroupActions extends ControllerApi {
 
         $regions = $apiV2->getJson('region');
         $products = $apiV2->getJson('product');
-        $businessTypes = $apiV2->getJson('businesstype');
-        $serviceTypes = $apiV2->getJson('servicetype');
+        $materials = $apiV2->getJson('material');
+        $services = $apiV2->getJson('service');
 
         Breadcrumb::add('/'.$this->adminUrl.'/index','Maker Groups');
         Breadcrumb::add(null, $makergroup ? $makergroup->name : 'invalid id');
@@ -44,8 +44,8 @@ class makergroupActions extends ControllerApi {
 
         $this->render->setData('regions', $regions);
         $this->render->setData('products', $products);
-        $this->render->setData('businessTypes', $businessTypes);
-        $this->render->setData('serviceTypes', $serviceTypes);
+        $this->render->setData('materials', $materials);
+        $this->render->setData('services', $services);
     }
 
     public function executeDelete() {
@@ -76,15 +76,15 @@ class makergroupActions extends ControllerApi {
         } else {
             $fields['products'] = 0;
         }
-        if ($this->input->get('business_type_id', null)) {
-            $fields['business_types'] = implode(',', $this->input->get('business_type_id',[]));
+        if ($this->input->get('material_id', null)) {
+            $fields['materials'] = implode(',', $this->input->get('material_id',[]));
         } else {
-            $fields['business_types'] = 0;
+            $fields['materials'] = 0;
         }
-        if ($this->input->get('service_type_id', null)) {
-            $fields['service_types'] = implode(',', $this->input->get('service_type_id',[]));
+        if ($this->input->get('service_id', null)) {
+            $fields['services'] = implode(',', $this->input->get('service_id',[]));
         } else {
-            $fields['service_types'] = 0;
+            $fields['services'] = 0;
         }
         $apiV2 = new ApiV2();
         if ($id) {

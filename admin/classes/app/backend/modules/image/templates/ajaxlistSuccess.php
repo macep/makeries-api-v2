@@ -1,11 +1,19 @@
 <div class="row">
-    <?php foreach ($images as $image) :?>
-    <div class="col-lg-3 col-xs-6">
-      <br><?=$image->name?>
-      <br><img width="100px" src="/image/view?maker_id=<?=$maker_id?>&id=<?=$image->id?>"></img>
-      <br><a href="/image/delete?maker_id=<?=$maker_id?>&id=<?=$image->id?>" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-xs"><i class="fa fa-fw fa-remove"></i></a>
+  <div class="col-sm-offset-2 col-sm-10">
+    <hr>
+    <div class="row">
+        <?php foreach ($images as $image) :?>
+        <div class="col-lg-3 col-xs-6">
+          <h6 class="text-ellipsis"><?=$image->name?></h6>
+          <div class="image-container" style="background-image: url(/image/view?maker_id=<?=$maker_id?>&id=<?=$image->id?>)">
+            <a href="/image/delete?maker_id=<?=$maker_id?>&id=<?=$image->id?>" onclick="deleteMakerImage(<?=$image->id?>);return false;">
+              <i class="fa fa-trash"></i>
+            </a>
+          </div>
+        </div>
+        <?php endforeach;?>
     </div>
-    <?php endforeach;?>
+  </div>
 </div>
 <div id="projectImages"></div>
 <?php if (isset($pagination) && $pagination['pages']>1) :?>

@@ -48,7 +48,7 @@ class MediaController extends Controller
         $media->url= $request->url;
         $media->save();
 
-        return response()->json($media);
+        return response()->json($media, 201);
     }
 
     public function view(Request $request, $id)

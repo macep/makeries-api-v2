@@ -605,19 +605,20 @@ throw new Error('AdminLTE requires jQuery')
     var neg           = $(Selector.mainHeader).outerHeight() + footerHeight;
     var windowHeight  = $(window).height();
     var sidebarHeight = $(Selector.sidebar).height() || 0;
+    var mainHeaderHeight = $(Selector.mainHeader).height() || 0;
 
     // Set the min-height of the content and sidebar based on
     // the height of the document.
     if ($('body').hasClass(ClassName.fixed)) {
-      $(Selector.contentWrapper).css('min-height', windowHeight - footerHeight);
+      $(Selector.contentWrapper).css('min-height', windowHeight - footerHeight + mainHeaderHeight);
     } else {
       var postSetHeight;
 
       if (windowHeight >= sidebarHeight) {
-        $(Selector.contentWrapper).css('min-height', windowHeight - neg);
+        $(Selector.contentWrapper).css('min-height', windowHeight - neg + mainHeaderHeight);
         postSetHeight = windowHeight - neg;
       } else {
-        $(Selector.contentWrapper).css('min-height', sidebarHeight);
+        $(Selector.contentWrapper).css('min-height', sidebarHeight + mainHeaderHeight);
         postSetHeight = sidebarHeight;
       }
 
@@ -625,7 +626,7 @@ throw new Error('AdminLTE requires jQuery')
       var $controlSidebar = $(Selector.controlSidebar);
       if (typeof $controlSidebar !== 'undefined') {
         if ($controlSidebar.height() > postSetHeight)
-          $(Selector.contentWrapper).css('min-height', $controlSidebar.height());
+          $(Selector.contentWrapper).css('min-height', $controlSidebar.height() + mainHeaderHeight);
       }
     }
   };

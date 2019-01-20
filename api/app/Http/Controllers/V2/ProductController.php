@@ -41,7 +41,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->save();
 
-        return response()->json($product);
+        return response()->json($product, 201);
     }
 
     public function view(Request $request, $id)
@@ -66,7 +66,7 @@ class ProductController extends Controller
             return response(null, 404);
         }
         $validatedData = $this->validate($request, [
-                'name' => 'required|unique:products,id,'.$id.'|max:255'
+                'name' => 'required|unique:products,name,'.$id.'|max:255'
             ]);
         $product->name = $request->name;
         $product->updated_by = $request->auth->userId;

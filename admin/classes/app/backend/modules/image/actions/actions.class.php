@@ -12,8 +12,9 @@ class imageActions extends ControllerApi {
     public function executeAjaxsave($lock = false) {
         $makerId = $this->input->get('maker_id');
         $this->apiUrl = 'maker/'.$makerId.'/image';
-        parent::executeAjaxsave(false);
-        $this->router->redirect('/maker/view?id='.$this->input->get('maker_id').'&tab=image');
+        parent::executeAjaxsave();
+        exit;
+        //$this->router->redirect('/maker/view?id='.$this->input->get('maker_id').'&tab=image');
     }
 
     public function executeEdit() {
@@ -55,13 +56,13 @@ class imageActions extends ControllerApi {
     public function executeView() {
         $makerId = $this->input->get('maker_id');
         $id = $this->input->get('id');
-        $url = 'maker/'.$makerId.'/image/'.$id;
+        $url = 'maker/'.$makerId.'/image/'.$id.'?thumb=1';
         $apiV2 = new ApiV2();
         $apiV2->get($url);
 
         $data = $apiV2->getResponseBody();
         
-        $im = imagecreatefromstring($data);
+        $im = imagecreatefromstring(base64_decode($data));
         if ($im !== false) {
             header('Content-Type: image/png');
             imagepng($im);

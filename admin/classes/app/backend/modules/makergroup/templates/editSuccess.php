@@ -33,21 +33,21 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Business types</label>
+                <label class="col-sm-2 control-label">Materials</label>
                 <div class="col-sm-10">
-                    <select name="business_type_id[]" multiple size="7" class="form-control">
-                        <?php foreach ($businessTypes as $businessType):?>
-                        <option value="<?=$businessType->id?>"<?=containsId($makergroup, 'businesstypes',$businessType->id)?' selected':''?>><?=$businessType->name?></option>
+                    <select name="material_id[]" multiple size="7" class="form-control">
+                        <?php foreach ($materials as $material):?>
+                        <option value="<?=$material->id?>"<?=containsId($makergroup, 'materials',$material->id)?' selected':''?>><?=$material->name?></option>
                         <?php endforeach;?>
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Service Types</label>
+                <label class="col-sm-2 control-label">Services</label>
                 <div class="col-sm-10">
-                    <select name="service_type_id[]" multiple size="7" class="form-control">
-                        <?php foreach ($serviceTypes as $serviceType):?>
-                        <option value="<?=$serviceType->id?>"<?=containsId($makergroup, 'servicetypes',$serviceType->id)?' selected':''?>><?=$serviceType->name?></option>
+                    <select name="service_id[]" multiple size="7" class="form-control">
+                        <?php foreach ($services as $service):?>
+                        <option value="<?=$service->id?>"<?=containsId($makergroup, 'services',$service->id)?' selected':''?>><?=$service->name?></option>
                         <?php endforeach;?>
                     </select>
                 </div>

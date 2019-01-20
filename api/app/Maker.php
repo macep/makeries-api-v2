@@ -83,8 +83,11 @@ class Maker extends Model
         DB::table('maker_product')->where('maker_id', $this->id)->delete();
         DB::table('maker_business_type')->where('maker_id', $this->id)->delete();
         DB::table('maker_service_type')->where('maker_id', $this->id)->delete();
-        DB::table('maker_project')->where('maker_id', $this->id)->delete();
-        DB::table('maker_media')->where('maker_id', $this->id)->delete();
+        if (isset($input->maker_groups)) {
+            DB::table('maker_maker_group')->where('maker_id', $this->id)->delete();
+        }
+        //DB::table('maker_project')->where('maker_id', $this->id)->delete();
+        //DB::table('maker_media')->where('maker_id', $this->id)->delete();
         return $this->setObject($request, $input, $request->auth->userId);
     }
 
@@ -136,43 +139,49 @@ class Maker extends Model
                     break;
             }
         }
+
         try{
             DB::beginTransaction();
             $this->save();
             try {
-                if (isset($input->business_types) && is_array($input->business_types)) {
-                    foreach ($input->business_types as $businessTypeId) {
-                        $this->businesstypes()->attach($businessTypeId, ['created_by' => $userId]);
+                if (isset($input->business_types)) {
+                    $tabBusinessTypes = explode(',',$input->business_types);
+                    foreach ($tabBusinessTypes as $businessTypeId) {
+                        if ((int)$businessTypeId) {
+                            $this->businesstypes()->attach($businessTypeId, ['created_by' => $userId]);
+                        }
                     }
                 }
-                if (isset($input->medias) && is_array($input->medias)) {
-                    foreach ($input->medias as $mediaId) {
-                        $this->medias()->attach($mediaId, ['created_by' => $userId]);
-                    }
-                }
-                if (isset($input->products) && is_array($input->products)) {
-                        foreach ($input->products as $productId) {
+                if (isset($input->products)) {
+                    $tabProducts = explode(',',$input->products);
+                    foreach ($tabProducts as $productId) {
+                        if ((int)$productId) {
                             $this->products()->attach($productId, ['created_by' => $userId]);
                         }
-                }
-                if (isset($input->projects) && is_array($input->projects)) {
-                    foreach ($input->projects as $projectId) {
-                        $this->projects()->attach($projectId, ['created_by' => $userId]);
                     }
                 }
-                if (isset($input->regions) && is_array($input->regions)) {
-                    foreach ($input->regions as $regionId) {
-                        $this->regions()->attach($regionId, ['created_by' => $userId]);
+                 if (isset($input->regions)) {
+                    $tabRegions = explode(',',$input->regions);
+                    foreach ($tabRegions as $regionId) {
+                        if ((int)$regionId) {
+                            $this->regions()->attach((int)$regionId, ['created_by' => $userId]);
+                        }
                     }
                 }
-                if (isset($input->service_types) && is_array($input->service_types)) {
-                    foreach ($input->service_types as $serviceTypeId) {
-                        $this->servicetypes()->attach($serviceTypeId, ['created_by' => $userId]);
+                if (isset($input->service_types)) {
+                    $tabServiceTypes = explode(',',$input->service_types);
+                    foreach ($tabServiceTypes as $serviceTypeId) {
+                        if ((int)$serviceTypeId) {
+                            $this->servicetypes()->attach($serviceTypeId, ['created_by' => $userId]);
+                        }
                     }
                 }
-                if (isset($input->maker_groups) && is_array($input->maker_groups)) {
-                    foreach ($input->maker_groups as $makerGroupId) {
-                        $this->makergroups()->attach($makerGroupId, ['created_by' => $userId]);
+                if (isset($input->maker_groups)) {
+                    $tabMakerGroups = explode(',',$input->maker_groups);
+                    foreach ($tabMakerGroups as $makerGroupId) {
+                        if ((int)$makerGroupId) {
+                            $this->makergroups()->attach($makerGroupId, ['created_by' => $userId]);
+                        }
                     }
                 }
             } catch(\Illuminate\Database\QueryException $ex){

@@ -43,34 +43,38 @@ class ControllerApi extends Controller
 		return $linkMore;
 	}
 
-	public function addOrUpdate($params, $files = []){
-		$response = ['error'=>true,'httpCode'=>null, 'message'=>null];
+    public function addOrUpdate($params, $files = []){
+        $response = ['error'=>true,'httpCode'=>null, 'message'=>null];
 
         $id = (int)$this->input->get('id');
-		$apiV2 = new ApiV2();
+        $apiV2 = new ApiV2();
         if ($id) {
             $apiV2->update($this->apiUrl.'/'.$id, $params, $files);
             if (!$apiV2->responseHadError()) {
-				$response['error'] = false;
-				return $response;
+                $data = json_decode($apiV2->getResponseBody());
+                $response['message'] = $data;
+                $response['error'] = false;
+                return $response;
             }
         } else {
             $apiV2->add($this->apiUrl, $params, $files);
             if (!$apiV2->responseHadError()) {
-				$response['error'] = false;
-				return $response;
+                $data = json_decode($apiV2->getResponseBody());
+                $response['message'] = $data;
+                $response['error'] = false;
+                return $response;
             }
         }
-		if ($apiV2->isResponseJson()) {
-			$datas = $apiV2->getResponseBodyJson();
-			foreach ($datas as $key=>$value) {
-				$response['message'] .= '<br>'. implode(',', $value);
-			}
-		} else {
-			$response['message'] = $apiV2->getResponseBody();
-		}
-		return $response;
-	}
+        if ($apiV2->isResponseJson()) {
+            $datas = $apiV2->getResponseBodyJson();
+            foreach ($datas as $key=>$value) {
+                $response['message'] .= '<br>'. implode(',', $value);
+            }
+        } else {
+            $response['message'] = $apiV2->getResponseBody();
+        }
+        return $response;
+    }
 
     public function ajaxsave() {
         $params = [];

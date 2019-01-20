@@ -33,6 +33,8 @@ class RegionController extends Controller
     
     public function add(Request $request)
     {
+        $logging = new Logging();
+        $logging->info($request, 'REGION:ADD', array_merge($_GET, $_POST));
         $validatedData = $this->validate($request, [
                 'name' => 'required|unique:regions|max:255'
             ]);
@@ -41,7 +43,7 @@ class RegionController extends Controller
         $region->name = $request->name;
         $region->save();
 
-        return response()->json($region);
+        return response()->json($region, 201);
     }
 
     public function view(Request $request, $id)
@@ -51,6 +53,8 @@ class RegionController extends Controller
         }
         $region = RegionRestriction::findOneById($request, $id);
         if ($region) {
+            #$logging = new Logging();
+            #$logging->info($request, 'REGION:VIEW:'.$id, (array)$region);
             return response()->json($region);
         }
         return response(null, 404);
@@ -58,6 +62,8 @@ class RegionController extends Controller
     
     public function update(Request $request, $id)
     {
+        $logging = new Logging();
+        $logging->info($request, 'REGION:UPDATE:'.$id, array_merge($_GET, $_POST));
         if (!is_numeric($id)) {
             return response(null, 400);
         }
@@ -66,7 +72,7 @@ class RegionController extends Controller
             return response(null, 404);
         }
         $validatedData = $this->validate($request, [
-                'name' => 'required|unique:regions,id,'.$id.'|max:255'
+                'name' => 'required|unique:regions,name,'.$id.'|max:255'
             ]);
         $region->name = $request->name;
         $region->updated_by = $request->auth->userId;

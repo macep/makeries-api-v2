@@ -26,4 +26,9 @@ class Logging extends Model
     function warning($request, $title, $data = [], $source=null, $file='request') {
         $this->getLog($file)->addWarning($request->ip(). ' ' . $request->auth->userId . ' ' . $title, $data);
     }
+
+    function _simple($title, $data = [], $file='request') {
+        $this->getLog($file)->addInfo('_SIMPLE ' . $title, $data);
+    }
+
 }

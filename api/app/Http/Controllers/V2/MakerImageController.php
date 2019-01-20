@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Image;
 use App\Logging;
 use App\Maker;
+use App\ImageThumb;
 
 class MakerImageController extends Controller
 {
@@ -52,16 +53,20 @@ class MakerImageController extends Controller
             $image->save();
             //TODO: find better way to save in storage
             $destinationPath = __DIR__ . '/../../../../storage/images/' . ($image->id % 10);
+
             $request->file('upfile')->move($destinationPath, $image->id);
+
+            $imageThumb = new ImageThumb();
+            $imageThumb->create($destinationPath . '/' . $image->id);
             DB::commit();
         } catch(\Exception $ex){
             DB::rollback();
             $logging = new Logging();
-            $logging->info($request, 'PROJECT_IMAGE:ADD',[$ex->getMessage()]);
+            $logging->info($request, 'MAKER_IMAGE:ADD',[$ex->getMessage()]);
             return response()->json('There was a problem to save image', 500);
         }
 
-        return response()->json($image);
+        return response()->json($image, 201);
     }
 
     public function download(Request $request, $makerId, $id)
@@ -77,6 +82,11 @@ class MakerImageController extends Controller
             return response('invalid maker ID', 404);
         }
         $imagePath = __DIR__ . '/../../../../storage/images/' . ($image->id % 10) . '/'. $image->id;
+        $downloadThumb = $request->get('thumb');
+        if ((int)$downloadThumb == 1) {
+            $imagePath .= '-thumb';
+        }
+
         //TODO: check if file not exists
         if (file_exists($imagePath)) {
             return response()->download($imagePath, 'download');
@@ -98,13 +108,8 @@ class MakerImageController extends Controller
             return response('invalid maker ID', 404);
         }
 
-        //TODO: find better way to delete from storage
-        $imagePath = __DIR__ . '/../../../../storage/images/' . ($image->id % 10) . '/'. $image->id;
+        $image->removeImageFile();
         $image->delete();
-        //TODO: check if file not exists
-        if (file_exists($imagePath)) {
-            unlink($imagePath);
-        }
 
         return response(null, 204);
     }    

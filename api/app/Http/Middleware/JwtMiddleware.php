@@ -119,9 +119,9 @@ class JwtMiddleware
             if ($pos = strpos($requestUri,'/')) {
                 $requestUri = substr($requestUri,0,$pos);
             }
-            if ($requestUri == 'makergroup') {
-                return response()->json('Access limited.', 400);
-            }
+            //if ($requestUri == 'makergroup') {
+            //    return response()->json('Access limited.', 400);
+            //}
             if ($request->getMethod() != 'GET'
                 && in_array($requestUri,['businesstype','product','region','servicetype'])
                 ) {
