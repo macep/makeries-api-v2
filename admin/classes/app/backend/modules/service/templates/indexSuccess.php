@@ -33,7 +33,7 @@
             <div class="box-body" style="display: none;">
                 <form method="post" action="/service/save/" id="serviceSave" class="form-horizontal">
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Service Type</label>
+                            <label for="inputEmail3" class="col-sm-2 control-label">Service</label>
                             <div class="col-sm-10">
                                 <input type="text" name="name" class="form-control" id="newService TypeName" placeholder="new service name">
                             </div>
@@ -49,7 +49,7 @@
         <!-- Default box -->
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title">Service Types</h3>
+            <h3 class="box-title">Services</h3>
           </div>
           <div class="box-body">
             <?php $pos = 1;?>
