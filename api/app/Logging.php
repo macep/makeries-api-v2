@@ -31,4 +31,10 @@ class Logging extends Model
         $this->getLog($file)->addInfo('_SIMPLE ' . $title, $data);
     }
 
+    function _call($request, $data = [], $file='request') {
+        $this->getLog($file)->addInfo($request->ip()
+                                      . ' '.(isset($request->auth) && isset($request->auth->userId) ? $request->auth->userId : '-')
+                                      . ' URL ', $data);
+    }
+
 }

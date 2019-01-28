@@ -2,14 +2,15 @@
   "swagger": "2.0",
   "info": {
     "title": "Makeries API documentation",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "contact": {
       "email": "apiteam@makeries.co.uk"
     }
   },
   "basePath": "/v2",
   "schemes": [
-    "http"
+    "http",
+    "https"
   ],
   "securityDefinitions": {
     "apiKey": {
@@ -478,6 +479,12 @@
             "description": "ID of image to download",
             "required": true,
             "type": "integer"
+          },
+          {
+            "name": "thumb",
+            "in": "query",
+            "description": "Specify only if request thumb for the image",
+            "type": "integer"
           }
         ],
         "responses": {
@@ -741,14 +748,14 @@
         }
       }
     },
-    "/businesstype": {
+    "/material": {
       "get": {
         "tags": [
-          "business type"
+          "material"
         ],
-        "summary": "Return busines types",
-        "description": "Return all regions",
-        "operationId": "getBusinessTypes",
+        "summary": "Return materials",
+        "description": "Return all materials",
+        "operationId": "getMaterialss",
         "produces": [
           "application/json"
         ],
@@ -787,7 +794,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/BusinessType"
+              "$ref": "#/definitions/Material"
             }
           },
           "400": {
@@ -797,11 +804,11 @@
       },
       "post": {
         "tags": [
-          "business type"
+          "material"
         ],
-        "summary": "Create a business type",
-        "description": "Create a business type",
-        "operationId": "createBusinessType",
+        "summary": "Create a material",
+        "description": "Create a material",
+        "operationId": "createMaterial",
         "produces": [
           "application/json"
         ],
@@ -817,7 +824,7 @@
           {
             "name": "name",
             "in": "formData",
-            "description": "New business type name",
+            "description": "New material type name",
             "required": true,
             "type": "string"
           }
@@ -826,7 +833,7 @@
           "201": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/components/schemas/BusinessType"
+              "$ref": "#/components/schemas/Material"
             }
           },
           "400": {
@@ -835,14 +842,14 @@
         }
       }
     },
-    "/businesstype/{id}": {
+    "/material/{id}": {
       "get": {
         "tags": [
-          "business type"
+          "material"
         ],
-        "summary": "Get a business type",
-        "description": "get one business type",
-        "operationId": "getBusinessType",
+        "summary": "Get a material",
+        "description": "get one material",
+        "operationId": "getMaterial",
         "produces": [
           "application/json"
         ],
@@ -858,7 +865,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of business type to return",
+            "description": "ID of material type to return",
             "required": true,
             "type": "integer"
           }
@@ -867,24 +874,24 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/BusinessType"
+              "$ref": "#/definitions/Material"
             }
           },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "Business type not found"
+            "description": "Material not found"
           }
         }
       },
       "put": {
         "tags": [
-          "business type"
+          "material"
         ],
-        "summary": "Update a business type",
-        "description": "Update a busines type",
-        "operationId": "updateBusinessType",
+        "summary": "Update a material",
+        "description": "Update a material",
+        "operationId": "updateMaterial",
         "produces": [
           "application/json"
         ],
@@ -907,7 +914,7 @@
           {
             "name": "name",
             "in": "formData",
-            "description": "New business type name",
+            "description": "New material type name",
             "required": true,
             "type": "string"
           }
@@ -920,11 +927,11 @@
       },
       "delete": {
         "tags": [
-          "business type"
+          "material"
         ],
-        "summary": "Delete a business type",
-        "description": "Delete a business type",
-        "operationId": "deleteBusinessType",
+        "summary": "Delete a material",
+        "description": "Delete a material",
+        "operationId": "deleteMaterial",
         "produces": [
           "application/json"
         ],
@@ -940,7 +947,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of business type to return",
+            "description": "ID of material type to return",
             "required": true,
             "type": "integer"
           }
@@ -952,14 +959,14 @@
         }
       }
     },
-    "/servicetype": {
+    "/service": {
       "get": {
         "tags": [
-          "service type"
+          "service"
         ],
-        "summary": "Return service types",
-        "description": "Return all regions",
-        "operationId": "getServiceTypes",
+        "summary": "Return services",
+        "description": "Return all services",
+        "operationId": "getServices",
         "produces": [
           "application/json"
         ],
@@ -998,7 +1005,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/ServiceType"
+              "$ref": "#/definitions/Service"
             }
           },
           "400": {
@@ -1008,11 +1015,11 @@
       },
       "post": {
         "tags": [
-          "service type"
+          "service"
         ],
-        "summary": "Create a service type",
-        "description": "Create a service type",
-        "operationId": "createServiceType",
+        "summary": "Create a service",
+        "description": "Create a service",
+        "operationId": "createService",
         "produces": [
           "application/json"
         ],
@@ -1028,7 +1035,7 @@
           {
             "name": "name",
             "in": "formData",
-            "description": "New service type name",
+            "description": "New service name",
             "required": true,
             "type": "string"
           }
@@ -1037,7 +1044,7 @@
           "201": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/components/schemas/ServiceType"
+              "$ref": "#/components/schemas/Service"
             }
           },
           "400": {
@@ -1046,14 +1053,14 @@
         }
       }
     },
-    "/servicetype/{id}": {
+    "/service/{id}": {
       "get": {
         "tags": [
-          "service type"
+          "service"
         ],
-        "summary": "Get a service type",
-        "description": "get one service type",
-        "operationId": "getServiceType",
+        "summary": "Get a service",
+        "description": "get one service",
+        "operationId": "getService",
         "produces": [
           "application/json"
         ],
@@ -1069,7 +1076,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of service type to return",
+            "description": "ID of service to return",
             "required": true,
             "type": "integer"
           }
@@ -1078,24 +1085,24 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/ServiceType"
+              "$ref": "#/definitions/Service"
             }
           },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "Service type not found"
+            "description": "Service not found"
           }
         }
       },
       "put": {
         "tags": [
-          "service type"
+          "service"
         ],
-        "summary": "Update a service type",
-        "description": "Update a service type",
-        "operationId": "updateServiceType",
+        "summary": "Update a service",
+        "description": "Update a service",
+        "operationId": "updateService",
         "produces": [
           "application/json"
         ],
@@ -1111,14 +1118,14 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of service type to update",
+            "description": "ID of service to update",
             "required": true,
             "type": "integer"
           },
           {
             "name": "name",
             "in": "formData",
-            "description": "Service type name",
+            "description": "Service name",
             "required": true,
             "type": "string"
           }
@@ -1131,11 +1138,11 @@
       },
       "delete": {
         "tags": [
-          "service type"
+          "service"
         ],
-        "summary": "Delete a service type",
-        "description": "Delete a service type",
-        "operationId": "deleteServiceType",
+        "summary": "Delete a service",
+        "description": "Delete a service",
+        "operationId": "deleteService",
         "produces": [
           "application/json"
         ],
@@ -1151,7 +1158,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of service type to return",
+            "description": "ID of service to return",
             "required": true,
             "type": "integer"
           }
@@ -1370,6 +1377,61 @@
         "responses": {
           "204": {
             "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/capacity": {
+      "get": {
+        "tags": [
+          "capacity"
+        ],
+        "summary": "Return capacities",
+        "description": "Return all capacities",
+        "operationId": "getCapacities",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "sort_by",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Capacity"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
           }
         }
       }
@@ -2136,7 +2198,7 @@
             }
           },
           {
-            "name": "business_types",
+            "name": "services",
             "in": "formData",
             "type": "array",
             "items": {
@@ -2144,7 +2206,7 @@
             }
           },
           {
-            "name": "service_types",
+            "name": "materials",
             "in": "formData",
             "type": "array",
             "items": {
@@ -2258,7 +2320,7 @@
             }
           },
           {
-            "name": "business_types",
+            "name": "materials",
             "in": "formData",
             "type": "array",
             "items": {
@@ -2266,7 +2328,7 @@
             }
           },
           {
-            "name": "service_types",
+            "name": "services",
             "in": "formData",
             "type": "array",
             "items": {
@@ -2321,6 +2383,29 @@
           }
         }
       }
+    },
+    "/website/entities": {
+      "get": {
+        "tags": [
+          "website"
+        ],
+        "summary": "Entities statistics",
+        "description": "Return entities stat to generate menu",
+        "operationId": "getmenuEntities",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2328,7 +2413,7 @@
       "IdString": {
         "type": "string"
       },
-      "BusinessType": {
+      "Material": {
         "type": "object",
         "properties": {
           "name": {
@@ -2344,7 +2429,7 @@
           }
         }
       },
-      "ServiceType": {
+      "Service": {
         "type": "object",
         "properties": {
           "name": {
@@ -2407,13 +2492,25 @@
           "map_url": {
             "type": "string"
           },
-          "admin_email": {
-            "type": "string"
-          },
           "brief_description": {
             "type": "string"
           },
-          "long_description": {
+          "what_we_do": {
+            "type": "string"
+          },
+          "testimonials": {
+            "type": "string"
+          },
+          "story_description": {
+            "type": "string"
+          },
+          "company_description": {
+            "type": "string"
+          },
+          "min": {
+            "type": "string"
+          },
+          "max": {
             "type": "string"
           },
           "regions": {
@@ -2443,19 +2540,25 @@
               "no"
             ]
           },
-          "business_types": {
+          "materials": {
             "type": "array",
             "items": {
               "type": "integer"
             }
           },
-          "service_types": {
+          "services": {
             "type": "array",
             "items": {
               "type": "integer"
             }
           },
           "products": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "capacities": {
             "type": "array",
             "items": {
               "type": "integer"
@@ -2493,6 +2596,9 @@
         "name": {
           "type": "string"
         },
+        "slug": {
+          "type": "string"
+        },
         "address1": {
           "type": "string"
         },
@@ -2526,13 +2632,25 @@
         "mapUrl": {
           "type": "string"
         },
-        "admin_email": {
-          "type": "string"
-        },
         "brief_description": {
           "type": "string"
         },
-        "long_description": {
+        "what_we_do": {
+          "type": "string"
+        },
+        "testimonials": {
+          "type": "string"
+        },
+        "story_description": {
+          "type": "string"
+        },
+        "company_description": {
+          "type": "string"
+        },
+        "min": {
+          "type": "string"
+        },
+        "max": {
           "type": "string"
         },
         "region": {
@@ -2562,22 +2680,28 @@
             "no"
           ]
         },
-        "businesstypes": {
+        "materials": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/BusinessType"
+            "$ref": "#/definitions/Material"
           }
         },
-        "servicetypes": {
+        "services": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ServiceType"
+            "$ref": "#/definitions/Service"
           }
         },
         "products": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/Product"
+          }
+        },
+        "capacities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Capacity"
           }
         },
         "medias": {
@@ -2620,7 +2744,18 @@
         }
       }
     },
-    "BusinessType": {
+    "Material": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Capacity": {
       "type": "object",
       "properties": {
         "id": {
@@ -2640,16 +2775,16 @@
         "name": {
           "type": "string"
         },
-        "businesstypes": {
+        "materials": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/BusinessType"
+            "$ref": "#/definitions/Material"
           }
         },
-        "servicetypes": {
+        "services": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ServiceType"
+            "$ref": "#/definitions/Service"
           }
         },
         "products": {
@@ -2666,7 +2801,7 @@
         }
       }
     },
-    "ServiceType": {
+    "Service": {
       "type": "object",
       "properties": {
         "id": {

@@ -11,6 +11,7 @@ namespace App\Console\Commands;
 
 
 use App\Maker;
+use App\ImageThumb;
 
 use Exception;
 use Illuminate\Console\Command;
@@ -64,7 +65,7 @@ class ImportJsonCommand extends Command
                 'mapURL'=>'map_url',
                 'adminEmail'=>'admin_email',
                 'briefDescription'=>'brief_description',
-                'longDescription'=>'long_description',
+                'longDescription'=>'what_we_do',
                 'featured'=>'featured',
             ];
 /*
@@ -107,17 +108,18 @@ $this->info("Import id:".$old->id);
                         $maker->$mapTo = $old->$key;
                     }
                 }
+                $maker->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $maker->name), '-'));
                 $maker->save();
 
                 DB::table('maker_region')->where('maker_id', $maker->id)->delete();
                 DB::table('maker_product')->where('maker_id', $maker->id)->delete();
-                DB::table('maker_business_type')->where('maker_id', $maker->id)->delete();
-                DB::table('maker_service_type')->where('maker_id', $maker->id)->delete();
+                DB::table('maker_material')->where('maker_id', $maker->id)->delete();
+                DB::table('maker_service')->where('maker_id', $maker->id)->delete();
                 
                 $this->setRegions($maker, $old);
                 $this->setProducts($maker, $old);
-                $this->setBusinessTypes($maker, $old);
-                $this->setServiceTypes($maker, $old);
+                $this->setMaterials($maker, $old);
+                $this->setServices($maker, $old);
                 $this->setImages($maker, $old);
             }
             
@@ -136,6 +138,7 @@ $this->info("Import id:".$old->id);
                 if (!$region) {
                     $region = new \App\Region;
                     $region->name = $old->region->name;
+                    $region->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $region->name), '-'));
                     $region->save();
                 }
                 $maker->regions()->attach($region->id, ['created_by' => -1]);
@@ -154,6 +157,7 @@ var_dump($old->region);exit;
                 if (!$product) {
                     $product = new \App\Product;
                     $product->name = $oldProduct->name;
+                    $product->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $product->name), '-'));
                     $product->save();
                 }
                 $maker->products()->attach($product->id, ['created_by' => -1]);
@@ -161,32 +165,36 @@ var_dump($old->region);exit;
         }
     }
 
-    private function setBusinessTypes($maker, $old) {
+    //In prrevious version was named : business type
+    private function setMaterials($maker, $old) {
         if (isset($old->businessTypes)) {
             foreach ($old->businessTypes as $oldBusinessTypes) {
-                $businessType = \App\BusinessType::where('name', $oldBusinessTypes->name)
+                $material = \App\Material::where('name', $oldBusinessTypes->name)
                    ->first();
-                if (!$businessType) {
-                    $businessType = new \App\BusinessType;
-                    $businessType->name = $oldBusinessTypes->name;
-                    $businessType->save();
+                if (!$material) {
+                    $material = new \App\Material;
+                    $material->name = $oldBusinessTypes->name;
+                    $material->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $material->name), '-'));
+                    $material->save();
                 }
-                $maker->businessTypes()->attach($businessType->id, ['created_by' => -1]);
+                $maker->materials()->attach($material->id, ['created_by' => -1]);
             }
         }
     }
 
-    private function setServiceTypes($maker, $old) {
+    //In prrevious version was named : service type
+    private function setServices($maker, $old) {
         if (isset($old->serviceTypes)) {
             foreach ($old->serviceTypes as $oldServiceTypes) {
-                $serviceType = \App\ServiceType::where('name', $oldServiceTypes->name)
+                $service = \App\Service::where('name', $oldServiceTypes->name)
                    ->first();
-                if (!$serviceType) {
-                    $serviceType = new \App\ServiceType;
-                    $serviceType->name = $oldServiceTypes->name;
-                    $serviceType->save();
+                if (!$service) {
+                    $service = new \App\Service;
+                    $service->name = $oldServiceTypes->name;
+                    $service->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $service->name), '-'));
+                    $service->save();
                 }
-                $maker->serviceTypes()->attach($serviceType->id, ['created_by' => -1]);
+                $maker->services()->attach($service->id, ['created_by' => -1]);
             }
         }
     }
@@ -208,7 +216,13 @@ var_dump($old->region);exit;
                 $image->created_by = -1;
                 $image->name = $oldImages->imageName;
                 $image->save();
+
                 file_put_contents($image->getImageFilePath(), file_get_contents($oldImages->url));
+
+                //Create also the thumb for the image
+                $imageThumb = new ImageThumb();
+                $imageThumb->create($image->getImageFilePath());
+
                 DB::commit();
             }
         }
